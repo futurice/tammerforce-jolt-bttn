@@ -1,0 +1,6 @@
+export FLOWDOCK_URL=Flowdock flow URL including token.
+export FLOWDOCK_THREAD_ID=Flowdock thread ID.
+export FLOWDOCK_EXTERNAL_USER_NAME=Name that will be used when posting to Flowdock.
+export FLOWDOCK_FLOW_TOKEN=https://www.flowdock.com/api/integration-getting-started
+export AUTH_TOKEN=Hardcoded string token that must be sent to this application. For super security!
+export FEED_API=URL for bt.tn feed API

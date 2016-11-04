@@ -1,0 +1,30 @@
+{
+  "name": "tammerforce-jolt-station",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "url": "git@github.com:futurice/tammerforce-jolt-station.git",
+    "type": "git"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "Hannu-Pekka Heinäjärvi <hannu-pekka.heinajarvi@futurice.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.15.2",
+    "body-parser": "^1.15.2",
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
+    "helmet": "^3.1.0",
+    "joi": "^9.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.9.1",
+    "eslint-config-airbnb-base": "^9.0.0",
+    "eslint-plugin-import": "^2.1.0",
+    "pre-commit": "^1.1.3"
+  }
+}
