@@ -10,7 +10,6 @@ const {
   FLOWDOCK_URL,
   FLOWDOCK_FLOW_TOKEN,
   FLOWDOCK_THREAD_ID,
-  EXTERNAL_USER_NAME,
 } = process.env;
 
 module.exports = () => {
@@ -43,7 +42,6 @@ module.exports = () => {
         flow_token: FLOWDOCK_FLOW_TOKEN,
         event: 'message',
         content,
-        external_user_name: EXTERNAL_USER_NAME,
         thread_id: FLOWDOCK_THREAD_ID,
       });
     })
