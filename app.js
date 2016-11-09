@@ -19,15 +19,17 @@ module.exports = () => {
   app.use(bodyParser.json());
   app.use(helmet());
   app.use(cors());
-
-  // Routes.
-  app.post('/', (req, res) => {
+  app.use((req, res, next) => {
     const { token } = req.body;
     if (token !== AUTH_TOKEN) {
       return res.sendStatus(401);
     }
+    return next();
+  });
 
-    return axios.get(FEED_API)
+  // Routes.
+  app.post('/jolt', (req, res) =>
+    axios.get(FEED_API)
     .then((response) => {
       const thisMonth = new Date().toISOString().substr(0, 7);
       const events = response.data.events;
@@ -36,7 +38,7 @@ module.exports = () => {
         event => new Date(event.local_time).toISOString().substr(0, 7) === thisMonth
       ).length;
 
-      const content = `Looks like someone has just been Jolted! ${monthlyCount} Jolts this month, ${totalCount} in total.`;
+      const content = `:jolt: Looks like someone has just been Jolted! ${monthlyCount} this month, ${totalCount} in total. #joltforce`;
 
       return axios.post(FLOWDOCK_URL, {
         flow_token: FLOWDOCK_FLOW_TOKEN,
@@ -46,8 +48,17 @@ module.exports = () => {
       });
     })
     .then(() => res.sendStatus(200))
-    .catch(err => res.sendStatus(err.response.status || 500));
-  });
+    .catch(err => res.sendStatus(err.response.status || 500)));
+
+  app.post('/remind', (req, res) =>
+    axios.post(FLOWDOCK_URL, {
+      flow_token: FLOWDOCK_FLOW_TOKEN,
+      event: 'message',
+      content: ':jolt: Nobody has been Jolted for a while :sadpanda: - do the right thing! #joltforce',
+      thread_id: FLOWDOCK_THREAD_ID,
+    })
+    .then(() => res.sendStatus(200))
+    .catch(err => res.sendStatus(err.response.status || 500)));
 
   return app;
 };
